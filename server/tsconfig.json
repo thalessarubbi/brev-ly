@@ -5,7 +5,8 @@
 
   "compilerOptions": {
     "lib": ["es2025", "ESNext.Collection", "ESNext.Temporal"],
-    "module": "nodenext",
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "target": "es2025",
     "types": ["node"],
 

@@ -9,6 +9,7 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod'
 import { createLinkRoute } from './routes/create-link'
+import { getLinkByShortUrlRoute } from './routes/get-link-by-short-url'
 
 export const app = fastify()
 
@@ -47,3 +48,4 @@ app.register(scalarUi, {
 })
 
 app.register(createLinkRoute)
+app.register(getLinkByShortUrlRoute)

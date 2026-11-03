@@ -1,16 +1,12 @@
-import { randomUUID } from 'node:crypto'
 import { eq } from 'drizzle-orm'
 import { afterAll, describe, expect, it } from 'vitest'
 import { ZodError } from 'zod'
 import { db, pg } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
+import { makeShortUrl } from '@/test/factories/make-link'
 import { isLeft, isRight, unwrapEither } from '../../../shared/either'
 import { createLink } from './create-link'
 import { ShortUrlAlreadyExistsError } from './errors/short-url-already-exists'
-
-function makeShortUrl() {
-  return `test-${randomUUID().slice(0, 8)}`
-}
 
 describe('createLink', () => {
   afterAll(async () => {

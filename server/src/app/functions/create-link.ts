@@ -4,7 +4,7 @@ import { schema } from '@/infra/db/schemas'
 import { type Either, makeLeft, makeRight } from '../../../shared/either'
 import { ShortUrlAlreadyExistsError } from './errors/short-url-already-exists'
 
-export const createLinkInput = z.object({
+export const CreateLinkInput = z.object({
   originalUrl: z.url().meta({ example: 'https://example.com' }),
   shortUrl: z
     .string()
@@ -14,12 +14,12 @@ export const createLinkInput = z.object({
     .meta({ example: 'my-link' }),
 })
 
-type CreateLinkInput = z.input<typeof createLinkInput>
+type CreateLinkInput = z.input<typeof CreateLinkInput>
 
 export async function createLink(
   input: CreateLinkInput
 ): Promise<Either<ShortUrlAlreadyExistsError, { linkId: string }>> {
-  const { originalUrl, shortUrl } = createLinkInput.parse(input)
+  const { originalUrl, shortUrl } = CreateLinkInput.parse(input)
 
   const [link] = await db
     .insert(schema.links)

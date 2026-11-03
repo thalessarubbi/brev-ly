@@ -1,6 +1,6 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { createLink, createLinkInput } from '@/app/functions/create-link'
+import { CreateLinkInput, createLink } from '@/app/functions/create-link'
 import { isRight, unwrapEither } from '../../../../shared/either'
 
 export const createLinkRoute: FastifyPluginAsyncZod = async server => {
@@ -10,8 +10,9 @@ export const createLinkRoute: FastifyPluginAsyncZod = async server => {
       schema: {
         summary: 'Create short link',
         description: 'Create a new shortened link',
+        tags: ['Links'],
         consumes: ['application/json'],
-        body: createLinkInput,
+        body: CreateLinkInput,
         response: {
           201: z.object({
             linkId: z.uuid(),

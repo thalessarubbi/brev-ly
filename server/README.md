@@ -15,7 +15,7 @@ Required:
 
 ### Links
 
-- [ ] FR01 – Create a link — `POST /links`
+- [x] FR01 – Create a link — `POST /links`
 - [ ] FR02 – Delete a link — `DELETE /links/:id`
 - [ ] FR03 – List all registered links — `GET /links`
 
@@ -30,8 +30,8 @@ Required:
 
 ## Business Rules
 
-- [ ] BR01 – A shortened URL must be well-formed (allowed format: `^[a-z0-9-]+$`)
-- [ ] BR02 – A shortened URL must be unique
+- [x] BR01 – A shortened URL must be well-formed (allowed format: `^[a-z0-9-]+$`)
+- [x] BR02 – A shortened URL must be unique
 - [ ] BR03 – Delete and increment use the same identifier (`id`), for consistency with the front-end
 
 ## Non-Functional Requirements

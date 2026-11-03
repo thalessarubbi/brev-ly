@@ -61,7 +61,7 @@ CLOUDFLARE_PUBLIC_URL=""
 ## Scripts
 
 - [x] `dev` – Start the server in watch mode
-- [ ] `db:migrate` – Run the database migrations (exact key required)
+- [x] `db:migrate` – Run the database migrations (exact key required)
 
 ## Docker
 

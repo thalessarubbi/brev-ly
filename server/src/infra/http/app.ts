@@ -10,6 +10,7 @@ import {
 } from 'fastify-type-provider-zod'
 import { createLinkRoute } from './routes/create-link'
 import { getLinkByShortUrlRoute } from './routes/get-link-by-short-url'
+import { getLinksRoute } from './routes/get-links'
 import { incrementLinkAccessCountRoute } from './routes/increment-link-access-count'
 
 export const app = fastify()
@@ -51,3 +52,4 @@ app.register(scalarUi, {
 app.register(createLinkRoute)
 app.register(getLinkByShortUrlRoute)
 app.register(incrementLinkAccessCountRoute)
+app.register(getLinksRoute)

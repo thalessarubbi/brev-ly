@@ -1,7 +1,7 @@
 import z from 'zod'
 import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
-import { type Either, makeLeft, makeRight } from '../../../shared/either'
+import { type Either, makeLeft, makeRight } from '@/shared/either'
 import { ShortUrlAlreadyExistsError } from './errors/short-url-already-exists'
 
 export const CreateLinkInput = z.object({

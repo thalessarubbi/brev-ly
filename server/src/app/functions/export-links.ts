@@ -20,7 +20,7 @@ export async function exportLinks(): Promise<Either<never, ExportLinksOutput>> {
       shortUrl: schema.links.shortUrl,
       accessCount: schema.links.accessCount,
       createdAt:
-        sql<string>`to_char(${schema.links.createdAt} at time zone 'America/Sao_Paulo', 'DD/MM/YYYY HH24:MI:ss')`.as(
+        sql<string>`to_char(${schema.links.createdAt} at time zone 'America/Sao_Paulo', 'DD/MM/YYYY HH24:MI:SS')`.as(
           'created_at'
         ),
     })

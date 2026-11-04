@@ -85,14 +85,14 @@ describe('exportLinks', () => {
       newest.originalUrl,
       newest.shortUrl,
       '7',
-      '02/01/2026 12:30',
+      '02/01/2026 12:30:00',
     ])
     expect(secondRow).toEqual([
       oldest.id,
       oldest.originalUrl,
       oldest.shortUrl,
       '3',
-      '01/01/2026 12:30',
+      '01/01/2026 12:30:00',
     ])
   })
 
@@ -103,7 +103,7 @@ describe('exportLinks', () => {
 
     const [row] = csvRows().map(r => r.split(','))
 
-    expect(row.at(-1)).toBe('28/02/2026 22:05')
+    expect(row.at(-1)).toBe('28/02/2026 22:05:00')
   })
 
   it('should export only the header when there are no links', async () => {

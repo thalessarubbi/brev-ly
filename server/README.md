@@ -16,7 +16,7 @@ Required:
 ### Links
 
 - [x] FR01 – Create a link — `POST /links`
-- [ ] FR02 – Delete a link — `DELETE /links/:id`
+- [x] FR02 – Delete a link — `DELETE /links/:id`
 - [x] FR03 – List all registered links — `GET /links`
 
 ### Access
@@ -32,7 +32,7 @@ Required:
 
 - [x] BR01 – A shortened URL must be well-formed (allowed format: `^[a-z0-9-]+$`)
 - [x] BR02 – A shortened URL must be unique
-- [ ] BR03 – Delete and increment use the same identifier (`id`), for consistency with the front-end
+- [x] BR03 – Delete and increment use the same identifier (`id`), for consistency with the front-end
 
 ## Non-Functional Requirements
 

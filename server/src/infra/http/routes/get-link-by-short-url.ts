@@ -1,7 +1,8 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
+
 import { getLinkByShortUrl } from '@/app/functions/get-link-by-short-url'
-import { isRight, unwrapEither } from '../../../../shared/either'
+import { isRight, unwrapEither } from '@/shared/either'
 
 export const getLinkByShortUrlRoute: FastifyPluginAsyncZod = async server => {
   server.get(

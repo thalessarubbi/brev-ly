@@ -1,7 +1,7 @@
 import { afterAll, describe, expect, it } from 'vitest'
 import { pg } from '@/infra/db'
+import { isLeft, isRight, unwrapEither } from '@/shared/either'
 import { makeLink, makeShortUrl } from '@/test/factories/make-link'
-import { isLeft, isRight, unwrapEither } from '../../../shared/either'
 import { LinkNotFoundError } from './errors/link-not-found'
 import { getLinkByShortUrl } from './get-link-by-short-url'
 

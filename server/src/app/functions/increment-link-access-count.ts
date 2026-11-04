@@ -2,14 +2,16 @@ import { eq, sql } from 'drizzle-orm'
 import z from 'zod'
 import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
-import { type Either, makeLeft, makeRight } from '../../../shared/either'
+import { type Either, makeLeft, makeRight } from '@/shared/either'
 import { LinkNotFoundError } from './errors/link-not-found'
 
 const IncrementLinkAccessCountInput = z.object({
   linkId: z.uuid(),
 })
 
-type IncrementLinkAccessCount = z.input<typeof IncrementLinkAccessCountInput>
+type IncrementLinkAccessCountInput = z.input<
+  typeof IncrementLinkAccessCountInput
+>
 
 type IncrementLinkAccessCountOutput = {
   id: string
@@ -17,7 +19,7 @@ type IncrementLinkAccessCountOutput = {
 }
 
 export async function incrementLinkAccessCount(
-  input: IncrementLinkAccessCount
+  input: IncrementLinkAccessCountInput
 ): Promise<Either<LinkNotFoundError, IncrementLinkAccessCountOutput>> {
   const { linkId } = IncrementLinkAccessCountInput.parse(input)
 

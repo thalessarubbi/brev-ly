@@ -2,14 +2,14 @@ import { eq } from 'drizzle-orm'
 import z from 'zod'
 import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
-import { type Either, makeLeft, makeRight } from '../../../shared/either'
+import { type Either, makeLeft, makeRight } from '@/shared/either'
 import { LinkNotFoundError } from './errors/link-not-found'
 
 const GetLinkByShortUrlInput = z.object({
   shortUrl: z.string(),
 })
 
-type GetLinkByShortUrl = z.input<typeof GetLinkByShortUrlInput>
+type GetLinkByShortUrlInput = z.input<typeof GetLinkByShortUrlInput>
 
 type GetLinkByShortUrlOutput = {
   id: string
@@ -17,7 +17,7 @@ type GetLinkByShortUrlOutput = {
 }
 
 export async function getLinkByShortUrl(
-  input: GetLinkByShortUrl
+  input: GetLinkByShortUrlInput
 ): Promise<Either<LinkNotFoundError, GetLinkByShortUrlOutput>> {
   const { shortUrl } = GetLinkByShortUrlInput.parse(input)
 

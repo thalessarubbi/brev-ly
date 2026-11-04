@@ -1,7 +1,8 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
+
 import { CreateLinkInput, createLink } from '@/app/functions/create-link'
-import { isRight, unwrapEither } from '../../../../shared/either'
+import { isRight, unwrapEither } from '@/shared/either'
 
 export const createLinkRoute: FastifyPluginAsyncZod = async server => {
   server.post(

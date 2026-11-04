@@ -10,6 +10,7 @@ import {
 } from 'fastify-type-provider-zod'
 import { createLinkRoute } from './routes/create-link'
 import { deleteLinkRoute } from './routes/delete-link'
+import { exportLinksRoute } from './routes/export-links'
 import { getLinkByShortUrlRoute } from './routes/get-link-by-short-url'
 import { getLinksRoute } from './routes/get-links'
 import { incrementLinkAccessCountRoute } from './routes/increment-link-access-count'
@@ -55,3 +56,4 @@ app.register(getLinkByShortUrlRoute)
 app.register(incrementLinkAccessCountRoute)
 app.register(getLinksRoute)
 app.register(deleteLinkRoute)
+app.register(exportLinksRoute)

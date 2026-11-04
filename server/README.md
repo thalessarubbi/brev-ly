@@ -26,7 +26,7 @@ Required:
 
 ### CSV Export
 
-- [ ] FR06 – Export the created links to a CSV — `POST /links/exports`
+- [x] FR06 – Export the created links to a CSV — `POST /links/exports`
 
 ## Business Rules
 
@@ -37,10 +37,10 @@ Required:
 ## Non-Functional Requirements
 
 - [x] NFR01 – Link listing is performant (paginated, indexed on `short_url`)
-- [ ] NFR02 – CSV is generated via streaming, not loaded fully into memory
-- [ ] NFR03 – CSV is accessible through a CDN (Cloudflare R2, Amazon S3, etc.)
-- [ ] NFR04 – CSV file name is random and unique
-- [ ] NFR05 – CSV columns: `original_url`, `short_url`, `access_count`, `created_at`
+- [x] NFR02 – CSV is generated via streaming, not loaded fully into memory
+- [x] NFR03 – CSV is accessible through a CDN (Cloudflare R2, Amazon S3, etc.)
+- [x] NFR04 – CSV file name is random and unique
+- [x] NFR05 – CSV includes the original URL, short URL, access count and creation date
 - [x] NFR06 – CORS is enabled
 
 ## Environment Variables

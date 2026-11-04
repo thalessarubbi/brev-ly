@@ -17,7 +17,7 @@ Required:
 
 - [x] FR01 – Create a link — `POST /links`
 - [ ] FR02 – Delete a link — `DELETE /links/:id`
-- [ ] FR03 – List all registered links — `GET /links`
+- [x] FR03 – List all registered links — `GET /links`
 
 ### Access
 
@@ -36,7 +36,7 @@ Required:
 
 ## Non-Functional Requirements
 
-- [ ] NFR01 – Link listing is performant (paginated, indexed on `short_url`)
+- [x] NFR01 – Link listing is performant (paginated, indexed on `short_url`)
 - [ ] NFR02 – CSV is generated via streaming, not loaded fully into memory
 - [ ] NFR03 – CSV is accessible through a CDN (Cloudflare R2, Amazon S3, etc.)
 - [ ] NFR04 – CSV file name is random and unique

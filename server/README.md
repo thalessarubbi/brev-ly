@@ -22,7 +22,7 @@ Required:
 ### Access
 
 - [x] FR04 – Get the original URL from a shortened URL — `GET /links/:shortUrl`
-- [ ] FR05 – Increment the access count of a link — `PATCH /links/:id/access`
+- [x] FR05 – Increment the access count of a link — `PATCH /links/:id/access`
 
 ### CSV Export
 

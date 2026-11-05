@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --env-file .env src/infra/http/server.ts",
+    "build": "tsup-node",
     "test": "dotenv -e .env.test vitest run",
     "test:watch": "dotenv -e .env.test vitest",
     "db:generate": "drizzle-kit generate",
@@ -46,6 +47,7 @@
     "@types/node": "^26.6.6",
     "dotenv-cli": "^11.1.0",
     "drizzle-kit": "^0.31.11",
+    "tsup": "^9.0.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"

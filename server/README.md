@@ -51,11 +51,11 @@ Required:
 PORT=
 DATABASE_URL=
 
-CLOUDFLARE_ACCOUNT_ID=""
-CLOUDFLARE_ACCESS_KEY_ID=""
-CLOUDFLARE_SECRET_ACCESS_KEY=""
-CLOUDFLARE_BUCKET=""
-CLOUDFLARE_PUBLIC_URL=""
+CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_ACCESS_KEY_ID=
+CLOUDFLARE_SECRET_ACCESS_KEY=
+CLOUDFLARE_BUCKET=
+CLOUDFLARE_PUBLIC_URL=
 ```
 
 ## Scripts
@@ -65,4 +65,4 @@ CLOUDFLARE_PUBLIC_URL=""
 
 ## Docker
 
-- [ ] `Dockerfile` that builds the application image, following best practices
+- [x] `Dockerfile` that builds the application image, following best practices

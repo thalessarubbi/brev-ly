@@ -5,7 +5,9 @@ import { type Either, makeLeft, makeRight } from '@/shared/either'
 import { ShortUrlAlreadyExistsError } from './errors/short-url-already-exists'
 
 export const CreateLinkInput = z.object({
-  originalUrl: z.url().meta({ example: 'https://example.com' }),
+  originalUrl: z
+    .url({ protocol: /^https?$/, hostname: z.regexes.domain })
+    .meta({ example: 'https://example.com' }),
   shortUrl: z
     .string()
     .min(3)

@@ -42,15 +42,15 @@ Optional:
 ## Non-Functional Requirements
 
 - [x] NFR01 – React SPA bundled with Vite
-- [ ] NFR02 – Follows the Figma layout as closely as possible
-- [ ] NFR03 – Good UX: empty state, loading indicators, actions blocked depending on the app state
-- [ ] NFR04 – Responsive: works well on desktop and mobile
+- [x] NFR02 – Follows the Figma layout as closely as possible
+- [x] NFR03 – Good UX: empty state, loading indicators, actions blocked depending on the app state
+- [x] NFR04 – Responsive: works well on desktop and mobile
 
 ## Pages
 
 - [x] `/` – Create link form and the list of registered links
 - [x] `/:shortUrl` – Looks up the shortened URL in the API and redirects to the original URL
-- [ ] Not found – Shown for any other route, or when the shortened URL doesn't exist
+- [x] Not found – Shown for any other route, or when the shortened URL doesn't exist
 
 ## Environment Variables
 

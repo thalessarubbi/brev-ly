@@ -21,9 +21,9 @@ Optional:
 
 ### Links
 
-- [ ] FR01 – Create a link
+- [x] FR01 – Create a link
 - [ ] FR02 – Delete a link
-- [ ] FR03 – List all registered links
+- [x] FR03 – List all registered links
 
 ### Access
 
@@ -36,8 +36,8 @@ Optional:
 
 ## Business Rules
 
-- [ ] BR01 – A shortened URL must be well-formed
-- [ ] BR02 – A shortened URL must be unique
+- [x] BR01 – A shortened URL must be well-formed
+- [x] BR02 – A shortened URL must be unique
 
 ## Non-Functional Requirements
 
@@ -48,7 +48,7 @@ Optional:
 
 ## Pages
 
-- [ ] `/` – Create link form and the list of registered links
+- [x] `/` – Create link form and the list of registered links
 - [ ] `/:shortUrl` – Looks up the shortened URL in the API and redirects to the original URL
 - [ ] Not found – Shown for any other route, or when the shortened URL doesn't exist
 

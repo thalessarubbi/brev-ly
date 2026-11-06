@@ -81,12 +81,17 @@ describe('createLink', () => {
     expect(links).toHaveLength(1)
   })
 
-  it('should not create a link with an invalid original URL', async () => {
-    const sut = createLink({
-      originalUrl: 'not-a-url',
-      shortUrl: makeShortUrl(),
-    })
+  it.each([
+    ['a malformed URL', 'not-a-url'],
+    ['a javascript: URL', 'javascript:alert(1)'],
+    ['an ftp: URL', 'ftp://example.com'],
+    ['a host without a domain', 'https://localhost'],
+  ])(
+    'should not create a link with %s as the original URL',
+    async (_, originalUrl) => {
+      const sut = createLink({ originalUrl, shortUrl: makeShortUrl() })
 
-    await expect(sut).rejects.toThrow(ZodError)
-  })
+      await expect(sut).rejects.toThrow(ZodError)
+    }
+  )
 })

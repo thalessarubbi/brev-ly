@@ -22,7 +22,7 @@ Optional:
 ### Links
 
 - [x] FR01 – Create a link
-- [ ] FR02 – Delete a link
+- [x] FR02 – Delete a link
 - [x] FR03 – List all registered links
 
 ### Access

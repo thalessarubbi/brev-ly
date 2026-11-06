@@ -6,14 +6,16 @@ const input = tv({
   slots: {
     label:
       'text-xs uppercase text-gray-500 transition-colors group-focus-within:font-bold group-focus-within:text-blue-base',
+    box: 'flex h-12 items-center rounded-lg border border-gray-300 px-4 transition-colors focus-within:border-[1.5px] focus-within:border-blue-base',
+    prefix: 'text-md font-normal text-gray-400',
     field:
-      'h-12 w-full rounded-lg border border-gray-300 px-4 text-md font-normal text-gray-600 caret-blue-base outline-none placeholder:text-gray-400 focus:border-[1.5px] focus:border-blue-base',
+      'min-w-0 flex-1 bg-transparent text-md font-normal text-gray-600 caret-blue-base outline-none placeholder:text-gray-400',
   },
   variants: {
     error: {
       true: {
         label: 'font-bold text-danger group-focus-within:text-danger',
-        field: 'border-[1.5px] border-danger focus:border-danger',
+        box: 'border-[1.5px] border-danger focus-within:border-danger',
       },
     },
   },
@@ -24,7 +26,14 @@ type InputProps = ComponentProps<'input'> & {
   error?: string
 }
 
-export function Input({ label, error, id, className, ...props }: InputProps) {
+export function Input({
+  label,
+  error,
+  prefix,
+  id,
+  className,
+  ...props
+}: InputProps) {
   const generatedId = useId()
   const inputId = id ?? generatedId
   const errorId = `${inputId}-error`
@@ -36,13 +45,16 @@ export function Input({ label, error, id, className, ...props }: InputProps) {
         {label}
       </label>
 
-      <input
-        id={inputId}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
-        className={styles.field({ className })}
-        {...props}
-      />
+      <div className={styles.box()}>
+        {prefix && <span className={styles.prefix()}>{prefix}</span>}
+        <input
+          id={inputId}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : undefined}
+          className={styles.field({ className })}
+          {...props}
+        />
+      </div>
 
       {error && (
         <p

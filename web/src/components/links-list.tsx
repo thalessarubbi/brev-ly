@@ -67,7 +67,7 @@ export function LinksList() {
       </div>
 
       <ScrollArea.Root type="scroll" className="min-h-0 flex-1 overflow-hidden">
-        <ScrollArea.Viewport className="size-full">
+        <ScrollArea.Viewport className="size-full [&>div]:block!">
           {isLoading ? (
             <div className="flex flex-col items-center gap-3 border-t border-gray-200 pt-8 pb-6">
               <SpinnerIcon className="size-8 animate-spin text-gray-400" />

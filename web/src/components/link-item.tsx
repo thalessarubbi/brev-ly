@@ -1,17 +1,41 @@
-import { CheckIcon, CopyIcon, TrashIcon } from '@phosphor-icons/react'
+import {
+  CheckIcon,
+  CopyIcon,
+  SpinnerIcon,
+  TrashIcon,
+} from '@phosphor-icons/react'
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
+import { deleteLink } from '../api/delete-link'
 import type { Link } from '../api/get-links'
 import { env } from '../env'
+import { queryClient } from '../lib/query-client'
 import { IconButton } from './ui/icon-button'
 
 export function LinkItem({ link }: { link: Link }) {
   const [copied, setCopied] = useState(false)
   const shortLinkUrl = `${env.VITE_FRONTEND_URL}/${link.shortUrl}`
 
+  const { mutateAsync: deleteLinkFn, isPending: isDeleting } = useMutation({
+    mutationFn: deleteLink,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['links'] }),
+  })
+
   async function handleCopy() {
     await navigator.clipboard.writeText(shortLinkUrl)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  async function handleDelete() {
+    if (!window.confirm(`Você realmente quer apagar o link ${link.shortUrl}?`))
+      return
+
+    try {
+      await deleteLinkFn(link.id)
+    } catch {
+      window.alert('Não foi possível apagar o link. Tente novamente.')
+    }
   }
 
   return (
@@ -46,8 +70,16 @@ export function LinkItem({ link }: { link: Link }) {
           )}
         </IconButton>
 
-        <IconButton aria-label="Excluir link">
-          <TrashIcon className="size-4" />
+        <IconButton
+          aria-label="Excluir link"
+          onClick={handleDelete}
+          disabled={isDeleting}
+        >
+          {isDeleting ? (
+            <SpinnerIcon className="size-4 animate-spin" />
+          ) : (
+            <TrashIcon className="size-4" />
+          )}
         </IconButton>
       </div>
     </li>

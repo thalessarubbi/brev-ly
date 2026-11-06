@@ -33,7 +33,10 @@ app.setErrorHandler((error, _request, reply) => {
   return reply.status(500).send({ message: 'Internal server error' })
 })
 
-app.register(fastifyCors, { origin: '*' })
+app.register(fastifyCors, {
+  origin: '*',
+  methods: ['GET', 'HEAD', 'POST', 'PATCH', 'DELETE'],
+})
 
 app.register(fastifySwagger, {
   openapi: {

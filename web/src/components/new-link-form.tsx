@@ -57,7 +57,7 @@ export function NewLinkForm() {
   return (
     <form
       onSubmit={handleSubmit(handleCreateLink)}
-      className="flex flex-col gap-5 rounded-lg bg-gray-100 p-6 md:w-95 md:shrink-0 md:gap-6 md:p-8"
+      className="flex flex-col gap-5 rounded-lg bg-gray-100 p-6 md:w-95 shrink-0 md:gap-6 md:p-8"
     >
       <h2 className="text-lg text-gray-600">Novo link</h2>
       <div className="flex flex-col gap-4">

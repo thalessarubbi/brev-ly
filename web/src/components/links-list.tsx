@@ -5,7 +5,8 @@ import {
   WarningIcon,
 } from '@phosphor-icons/react'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
+import { exportLinks } from '../api/export-links'
 import { getLinks } from '../api/get-links'
 import { LinkItem } from './link-item'
 import { Button } from './ui/button'
@@ -27,15 +28,40 @@ export function LinksList() {
       return loaded < lastPage.total ? allPages.length + 1 : undefined
     },
   })
+  const { mutateAsync: exportLinksFn, isPending: isExporting } = useMutation({
+    mutationFn: exportLinks,
+  })
 
   const links = data?.pages.flatMap(page => page.links) ?? []
+
+  async function handleExport() {
+    try {
+      const { reportUrl } = await exportLinksFn()
+
+      const anchor = document.createElement('a')
+      anchor.href = reportUrl
+      anchor.download = ''
+      anchor.click()
+    } catch {
+      window.alert('Não foi possível gerar o relatório. Tente novamente.')
+    }
+  }
 
   return (
     <div className="flex max-h-full min-h-0 flex-col gap-5 rounded-lg bg-gray-100 p-6 md:min-w-0 md:flex-1 md:p-8">
       <div className="flex items-center justify-between">
         <h2 className="text-lg text-gray-600">Meus links</h2>
-        <Button type="button" variant="secondary" disabled={links.length === 0}>
-          <DownloadSimpleIcon className="size-4 text-gray-600" />
+        <Button
+          type="button"
+          variant="secondary"
+          disabled={links.length === 0 || isExporting}
+          onClick={handleExport}
+        >
+          {isExporting ? (
+            <SpinnerIcon className="size-4 animate-spin text-gray-600" />
+          ) : (
+            <DownloadSimpleIcon className="size-4 text-gray-600" />
+          )}
           Baixar CSV
         </Button>
       </div>

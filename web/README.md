@@ -32,7 +32,7 @@ Optional:
 
 ### CSV Export
 
-- [ ] FR06 – Download a CSV report of the created links
+- [x] FR06 – Download a CSV report of the created links
 
 ## Business Rules
 

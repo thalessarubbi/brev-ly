@@ -1,7 +1,7 @@
 import fastifyCors from '@fastify/cors'
 import fastifySwagger from '@fastify/swagger'
 import scalarUi from '@scalar/fastify-api-reference'
-import fastify from 'fastify'
+import fastify, { type FastifyError } from 'fastify'
 import {
   hasZodFastifySchemaValidationErrors,
   jsonSchemaTransform,
@@ -20,12 +20,16 @@ export const app = fastify()
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
-app.setErrorHandler((error, _request, reply) => {
+app.setErrorHandler<FastifyError>((error, _request, reply) => {
   if (hasZodFastifySchemaValidationErrors(error)) {
     return reply.status(400).send({
       message: 'Validation error',
       issues: error.validation,
     })
+  }
+
+  if (error.statusCode && error.statusCode < 500) {
+    return reply.status(error.statusCode).send({ message: error.message })
   }
 
   console.error(error)

@@ -19,8 +19,12 @@ export const createLinkRoute: FastifyPluginAsyncZod = async server => {
             linkId: z.uuid(),
           }),
           400: z
-            .object({ message: z.string(), issues: z.array(z.unknown()) })
+            .object({
+              message: z.string(),
+              issues: z.array(z.unknown()).optional(),
+            })
             .describe('Validation error'),
+
           409: z
             .object({ message: z.string() })
             .describe('Shortened link already exists'),

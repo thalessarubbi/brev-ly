@@ -27,8 +27,8 @@ Optional:
 
 ### Access
 
-- [ ] FR04 – Get the original URL from a shortened URL
-- [ ] FR05 – Increment the access count of a link
+- [x] FR04 – Get the original URL from a shortened URL
+- [x] FR05 – Increment the access count of a link
 
 ### CSV Export
 
@@ -49,7 +49,7 @@ Optional:
 ## Pages
 
 - [x] `/` – Create link form and the list of registered links
-- [ ] `/:shortUrl` – Looks up the shortened URL in the API and redirects to the original URL
+- [x] `/:shortUrl` – Looks up the shortened URL in the API and redirects to the original URL
 - [ ] Not found – Shown for any other route, or when the shortened URL doesn't exist
 
 ## Environment Variables

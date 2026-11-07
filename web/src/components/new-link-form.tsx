@@ -7,6 +7,7 @@ import { createLink } from '../api/create-link'
 import { queryClient } from '../lib/query-client'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
+import { useToast } from './ui/toast'
 
 const newLinkFormSchema = z.object({
   originalUrl: z.url({
@@ -24,10 +25,10 @@ const newLinkFormSchema = z.object({
 type NewLinkFormData = z.infer<typeof newLinkFormSchema>
 
 export function NewLinkForm() {
+  const toast = useToast()
   const {
     register,
     handleSubmit,
-    setError,
     reset,
     formState: { errors },
   } = useForm<NewLinkFormData>({
@@ -43,14 +44,13 @@ export function NewLinkForm() {
     try {
       await createLinkFn(data)
       reset()
+      toast('Link criado com sucesso.')
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 409) {
-        setError('shortUrl', { message: 'Essa URL encurtada já existe.' })
+        toast('Essa URL encurtada já existe.', 'error')
         return
       }
-      setError('root', {
-        message: 'Não foi possível salvar o link. Tente novamente.',
-      })
+      toast('Não foi possível salvar o link. Tente novamente.', 'error')
     }
   }
 
@@ -77,9 +77,6 @@ export function NewLinkForm() {
       <Button type="submit" disabled={isPending}>
         {isPending ? 'Salvando...' : 'Salvar link'}
       </Button>
-      {errors.root && (
-        <p className="text-sm text-danger">{errors.root.message}</p>
-      )}
     </form>
   )
 }

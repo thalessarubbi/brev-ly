@@ -11,10 +11,12 @@ import type { Link } from '../api/get-links'
 import { env } from '../env'
 import { queryClient } from '../lib/query-client'
 import { IconButton } from './ui/icon-button'
+import { useToast } from './ui/toast'
 
 export function LinkItem({ link }: { link: Link }) {
   const [copied, setCopied] = useState(false)
   const shortLinkUrl = `${env.VITE_FRONTEND_URL}/${link.shortUrl}`
+  const toast = useToast()
 
   const { mutateAsync: deleteLinkFn, isPending: isDeleting } = useMutation({
     mutationFn: deleteLink,
@@ -22,9 +24,14 @@ export function LinkItem({ link }: { link: Link }) {
   })
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(shortLinkUrl)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(shortLinkUrl)
+      setCopied(true)
+      toast('Link copiado.')
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      toast('Não foi possível copiar o link.', 'error')
+    }
   }
 
   async function handleDelete() {
@@ -33,8 +40,9 @@ export function LinkItem({ link }: { link: Link }) {
 
     try {
       await deleteLinkFn(link.id)
+      toast('Link apagado.')
     } catch {
-      window.alert('Não foi possível apagar o link. Tente novamente.')
+      toast('Não foi possível apagar o link. Tente novamente.', 'error')
     }
   }
 

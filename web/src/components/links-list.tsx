@@ -10,8 +10,10 @@ import { exportLinks } from '../api/export-links'
 import { getLinks } from '../api/get-links'
 import { LinkItem } from './link-item'
 import { Button } from './ui/button'
+import { useToast } from './ui/toast'
 
 export function LinksList() {
+  const toast = useToast()
   const {
     data,
     isLoading,
@@ -42,8 +44,9 @@ export function LinksList() {
       anchor.href = reportUrl
       anchor.download = ''
       anchor.click()
+      toast('Relatório baixado.')
     } catch {
-      window.alert('Não foi possível gerar o relatório. Tente novamente.')
+      toast('Não foi possível gerar o relatório. Tente novamente.', 'error')
     }
   }
 

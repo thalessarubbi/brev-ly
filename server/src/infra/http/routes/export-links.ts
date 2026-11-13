@@ -20,7 +20,15 @@ export const exportLinksRoute: FastifyPluginAsyncZod = async server => {
     },
 
     async (_request, reply) => {
-      const result = await exportLinks()
+      const controller = new AbortController()
+
+      reply.raw.on('close', () => {
+        if (!reply.raw.writableFinished) {
+          controller.abort()
+        }
+      })
+
+      const result = await exportLinks({ signal: controller.signal })
 
       const { reportUrl } = unwrapEither(result)
 

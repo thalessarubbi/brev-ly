@@ -28,7 +28,20 @@ export const exportLinksRoute: FastifyPluginAsyncZod = async server => {
         }
       })
 
-      const result = await exportLinks({ signal: controller.signal })
+      const result = await exportLinks({ signal: controller.signal }).catch(
+        (error: unknown) => {
+          if (controller.signal.aborted) {
+            return null
+          }
+
+          throw error
+        }
+      )
+
+      if (!result) {
+        reply.hijack()
+        return
+      }
 
       const { reportUrl } = unwrapEither(result)
 

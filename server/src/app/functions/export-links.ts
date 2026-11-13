@@ -8,11 +8,19 @@ import { uploadFileToStorage } from '@/infra/storage/upload-file-to-storage'
 import type { Either } from '@/shared/either'
 import { makeRight } from '@/shared/either'
 
+type ExportLinksInput = {
+  signal?: AbortSignal
+}
+
 type ExportLinksOutput = {
   reportUrl: string
 }
 
-export async function exportLinks(): Promise<Either<never, ExportLinksOutput>> {
+export async function exportLinks({
+  signal,
+}: ExportLinksInput = {}): Promise<Either<never, ExportLinksOutput>> {
+  signal?.throwIfAborted()
+
   const { sql: query, params } = db
     .select({
       id: schema.links.id,
@@ -44,6 +52,16 @@ export async function exportLinks(): Promise<Either<never, ExportLinksOutput>> {
 
   const uploadToStorageStream = new PassThrough()
 
+  const failure = new AbortController()
+  const exportSignal = signal
+    ? AbortSignal.any([signal, failure.signal])
+    : failure.signal
+
+  const abortOnFailure = (error: unknown): never => {
+    failure.abort(error)
+    throw error
+  }
+
   const convertToCSVPipeline = pipeline(
     cursor,
     new Transform({
@@ -57,17 +75,28 @@ export async function exportLinks(): Promise<Either<never, ExportLinksOutput>> {
       },
     }),
     csv,
-    uploadToStorageStream
-  )
+    uploadToStorageStream,
+    { signal: exportSignal }
+  ).catch(abortOnFailure)
 
   const uploadToStorage = uploadFileToStorage({
     contentType: 'text/csv',
     folder: 'downloads',
     fileName: `${new Date().toISOString()}-links.csv`,
     contentStream: uploadToStorageStream,
-  })
+    signal: exportSignal,
+  }).catch(abortOnFailure)
 
-  const [{ url }] = await Promise.all([uploadToStorage, convertToCSVPipeline])
+  const [upload] = await Promise.allSettled([
+    uploadToStorage,
+    convertToCSVPipeline,
+  ])
 
-  return makeRight({ reportUrl: url })
+  signal?.throwIfAborted()
+
+  if (failure.signal.aborted || upload.status === 'rejected') {
+    throw failure.signal.reason
+  }
+
+  return makeRight({ reportUrl: upload.value.url })
 }
